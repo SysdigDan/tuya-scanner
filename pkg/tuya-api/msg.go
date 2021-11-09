@@ -109,7 +109,7 @@ func (d *Appliance) SendEncryptedCommand(cmd int, jdata interface{}) error {
 	select {
 	case d.tcpChan <- query{cmd, b}:
 	default:
-		return errors.New("device not ready")
+		return errors.New("device not ready when sending encrypted command message")
 	}
 	return nil
 }
@@ -121,7 +121,10 @@ func (d *Appliance) SendEncryptedRefresh(cmd int, jdata interface{}) error {
 		d.mutex.RUnlock()
 		return fmt.Errorf("json marshal (%v)", er1)
 	}
+
 	var b []byte
+
+	log.Println("[info] Device Name:", d.device.Name(), "- Device Version:", d.Version)
 	switch d.Version {
 	case "3.1":
 		cipherText, er2 := aesEncrypt(data, d.key, true)
@@ -145,7 +148,7 @@ func (d *Appliance) SendEncryptedRefresh(cmd int, jdata interface{}) error {
 	select {
 	case d.tcpChan <- query{cmd, b}:
 	default:
-		return errors.New("device not ready")
+		return errors.New("device not ready when sending encrypted refresh message")
 	}
 	return nil
 }
@@ -218,7 +221,7 @@ func (d *Appliance) SendCommand(cmd int, jdata interface{}) error {
 	select {
 	case d.tcpChan <- query{cmd, data}:
 	default:
-		return errors.New("device no ready")
+		return errors.New("device not ready when sending command message")
 	}
 	return nil
 }
@@ -227,7 +230,7 @@ func (d *Appliance) SendStatusRequest(cmd int, jdata []byte) error {
 	select {
 	case d.tcpChan <- query{cmd, jdata}:
 	default:
-		return errors.New("device no ready")
+		return errors.New("device not ready when sending status request message")
 	}
 	return nil
 }

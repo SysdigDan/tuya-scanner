@@ -109,6 +109,9 @@ func (s *ISwitch) StatusW(delay time.Duration) (bool, error) {
 }
 
 func (s *ISwitch) TuyaRefresh(delay time.Duration) ([]byte, error) {
+	// start := time.Now()
+	// log.Println("[debug] Refresh Started -", start)
+
 	c := MakeSyncChannel()
 	k := s.Subscribe(c)
 	defer s.Unsubscribe(k)
@@ -118,6 +121,7 @@ func (s *ISwitch) TuyaRefresh(delay time.Duration) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	for {
 		select {
 		case synMsg := <-c:
@@ -126,11 +130,17 @@ func (s *ISwitch) TuyaRefresh(delay time.Duration) ([]byte, error) {
 				return nil, err
 			}
 		case <-time.After(time.Until(deadLine)):
+			// end := time.Now()
+			// log.Println("[debug] Refresh Deadline -", end)
 			return nil, err
 		}
 	}
 }
+
 func (s *ISwitch) TuyaGetStatus(delay time.Duration) ([]byte, error) {
+	// start := time.Now()
+	// log.Println("[debug] Get Status Started -", start)
+
 	c := MakeSyncChannel()
 	k := s.Subscribe(c)
 	defer s.Unsubscribe(k)
@@ -140,6 +150,7 @@ func (s *ISwitch) TuyaGetStatus(delay time.Duration) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	for {
 		select {
 		case synMsg := <-c:
@@ -148,7 +159,7 @@ func (s *ISwitch) TuyaGetStatus(delay time.Duration) ([]byte, error) {
 				return synMsg.Status, err
 			}
 		case <-time.After(time.Until(deadLine)):
-			return nil, nil // errors.New("TCP Request Timeout")
+			return nil, errors.New("GetStatus - TCP Request Timeout")
 		}
 	}
 }

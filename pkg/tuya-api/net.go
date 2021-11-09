@@ -52,22 +52,22 @@ func (a *Appliance) tcpReceiver(cnx net.Conn, ccmd chan int) {
 	for {
 		header := make([]byte, 4*4)
 		if _, err = io.ReadFull(cnx, header); err != nil {
-			log.Println("Rcv error:", err)
+			log.Println("[tuya-api] Receive error:", err)
 			return
 		}
 		if int(uiRd(header)) != 0x55aa {
-			log.Println("Sync error:", err)
+			log.Println("[tuya-api] Sync error:", err)
 			return
 		}
 		code := int(uiRd(header[8:]))
 		sz := int(uiRd(header[12:]))
 		if sz > 10000 {
-			log.Println("Dubious big response")
+			log.Println("[tuya-api] Dubious big response")
 			return
 		}
 		response := make([]byte, sz)
 		if _, err = io.ReadFull(cnx, response); err != nil {
-			log.Println("Read failed", err)
+			log.Println("[tuya-api] Read failed", err)
 			return
 		}
 
