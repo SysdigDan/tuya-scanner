@@ -36,9 +36,18 @@ func LoadConfig(path string) (config Config, err error) {
 
 	viper.AutomaticEnv()
 
-	err = viper.ReadInConfig()
-	if err != nil {
-		return
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found; using env variables
+			viper.BindEnv("LISTENING_ADDRESS")
+			viper.BindEnv("BROKER_ADDRESS")
+			viper.BindEnv("BROKER_PORT")
+			viper.BindEnv("BROKER_USER")
+			viper.BindEnv("BROKER_PASSWORD")
+			viper.BindEnv("BROKER_TOPIC")
+			viper.BindEnv("CLIENT_ID")
+			viper.BindEnv("FREQ")
+		}
 	}
 
 	err = viper.Unmarshal(&config)
