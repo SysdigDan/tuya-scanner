@@ -5,7 +5,7 @@ before:
     - go mod tidy
     - go test ./...
 builds:
-  - main: ./cmd/tuya-scanner/main.go
+  - main: ./cmd/worker/main.go
     env:
       - CGO_ENABLED=0
     goos:
