@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/SysdigDan/tuya-scanner/cmd/worker/handlers/tuya"
+	"github.com/SysdigDan/tuya-scanner/pkg/tuya"
 	"github.com/SysdigDan/tuya-scanner/pkg/application"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
