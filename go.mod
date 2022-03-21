@@ -8,7 +8,7 @@ require (
 	github.com/spf13/viper v1.10.1
 )
 
-replace tinygo.org/x/bluetooth v0.3.0 => github.com/rbaron/bluetooth v0.3.1-0.20210501180115-a5ddbbc48845
+// replace tinygo.org/x/bluetooth v0.3.0 => github.com/rbaron/bluetooth v0.3.1-0.20210501180115-a5ddbbc48845
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect

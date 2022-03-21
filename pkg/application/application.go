@@ -22,7 +22,7 @@ func Get() (*Application, error) {
 		return nil, err
 	}
 
-	devices, err := config.LoadDevices("./devices.json")
+	devices, err := config.LoadDevices("./config/devices.json")
 	if err != nil {
 		log.Fatal("cannot load config:", err)
 		return nil, err
