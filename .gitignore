@@ -3,3 +3,4 @@ go.sum
 scanner.env
 devices.json
 buildnotes
+.dccache

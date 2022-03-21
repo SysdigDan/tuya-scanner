@@ -11,7 +11,6 @@ import (
 	"encoding/hex"
 	"errors"
 	"log"
-	//"log"
 )
 
 func md5Sign(b []byte, key []byte, version string) []byte {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/SysdigDan/tuya-scanner/cmd/worker/models"
+	"github.com/SysdigDan/tuya-scanner/models"
 	"github.com/SysdigDan/tuya-scanner/pkg/application"
 )
 

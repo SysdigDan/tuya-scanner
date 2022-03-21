@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/SysdigDan/tuya-scanner/cmd/worker/handlers/exporter"
-	"github.com/SysdigDan/tuya-scanner/cmd/worker/handlers/mqtt"
-	"github.com/SysdigDan/tuya-scanner/cmd/worker/models"
+	"github.com/SysdigDan/tuya-scanner/models"
 	"github.com/SysdigDan/tuya-scanner/pkg/application"
+	"github.com/SysdigDan/tuya-scanner/pkg/exporter"
+	"github.com/SysdigDan/tuya-scanner/pkg/mqtt"
 	"github.com/SysdigDan/tuya-scanner/pkg/tuya-api"
 )
 
@@ -40,7 +40,6 @@ type DeviceConfig []struct {
 
 var dm *tuya.DeviceManager
 var devList []tuya.Device
-
 
 func TuyaScanner(app *application.Application) {
 	log.Println("[info] Loading devices from configuration...")
